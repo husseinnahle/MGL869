@@ -1,0 +1,79 @@
+resource_types:
+- name: artifactory
+  type: registry-image
+  source:
+    repository: emeraldsquad/artifactory-resource
+    tag: 3.3.0
+
+- name: pull-request
+  type: registry-image
+  source:
+    repository: teliaoss/github-pr-resource
+
+resources:
+  - name: pypi-resource
+    type: artifactory
+    source:
+      uri: http://localhost:8081/artifactory/api/pypi/pypi-local/simple
+      username: ((artifactory-username))
+      password: ((artifactory-password))
+      repository_id: demo
+      artifact_id: mgl869
+      insecure: true
+
+  - name: pull-request
+    type: pull-request
+    check_every: 1m
+    webhook_token: ((pr-webhook-token))
+    source:
+      repository: husseinnahle/MGL869
+      access_token: ((github-access-token))
+
+jobs:
+- name: build-and-test
+  plan:
+
+    - get: pull-request
+      trigger: true
+      version: every
+
+    - put: pull-request
+      params:
+        path: pull-request
+        status: pending
+
+    - task: build-and-test
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: busybox
+        inputs:
+          - name: pull-request
+
+        outputs:
+          - dist: dist
+
+        run:
+          path: /bin/sh
+          args:
+            - -xce
+            - |
+              cd ./repo
+              pip install -r requirements.txt
+              python -m pytest
+              python -m build
+              grep '^version = ' pyproject.toml | sed -E 's/^version = \"(.*)\"/\1/' > dist/version
+              cp -rf dist ..
+
+      on_failure:
+        put: pull-request
+        params:
+          path: pull-request
+          status: failure
+
+    - put: pull-request
+      params:
+        path: pull-request
+        status: success
