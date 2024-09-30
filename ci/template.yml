@@ -14,13 +14,13 @@ resources:
   - name: pypi
     type: artifactory
     source:
-      uri: http://localhost:8081/artifactory
-      # username: ((artifactory-username))
+      insecure: true
       api_key: ((artifactory-password))
+      host: http://localhost:8081/artifactory
       repository_id: pypi-local
       group_id: demo
       artifact_id: mgl869
-      insecure: true
+      enforce_semver: true
 
   - name: pull-request
     type: pull-request
@@ -49,7 +49,7 @@ jobs:
         image_resource:
           type: registry-image
           source:
-            repository: busybox
+            repository: python
         inputs:
           - name: pull-request
 
