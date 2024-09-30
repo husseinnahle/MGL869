@@ -5,7 +5,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "INF5190-H22"
+name = "MGL869"
 version = "0.0.1"
 authors = [
   { name="Hussein Nahle", email="hussein.nahle.1@etsmtl.ca" },
