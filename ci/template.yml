@@ -8,7 +8,7 @@ resource_types:
 - name: pull-request
   type: registry-image
   source:
-    repository: teliaoss/github-pr-resource
+    repository: aoldershaw/github-pr-resource
 
 resources:
   - name: pypi
@@ -60,7 +60,7 @@ jobs:
           args:
             - -xce
             - |
-              cd ./repo
+              cd ./pull-request
               pip install -r requirements.txt
               python -m pytest
               python -m build
