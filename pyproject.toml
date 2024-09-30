@@ -1,0 +1,23 @@
+[build-system]
+requires = [
+  "setuptools>=70.0 @ https://pypi.org/simple"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "INF5190-H22"
+version = "0.0.1"
+authors = [
+  { name="Hussein Nahle", email="hussein.nahle.1@etsmtl.ca" },
+]
+description = "Demo MGL869"
+readme = "README.md"
+requires-python = ">=3"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/husseinnahle/MGL869"
+"Bug Tracker" = "https://github.com/husseinnahle/MGL869/issues"
