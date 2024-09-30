@@ -11,7 +11,7 @@ resource_types:
     repository: teliaoss/github-pr-resource
 
 resources:
-  - name: pypi-resource
+  - name: pypi
     type: artifactory
     source:
       uri: http://localhost:8081/artifactory/api/pypi/pypi-local/simple
@@ -53,7 +53,7 @@ jobs:
           - name: pull-request
 
         outputs:
-          - dist: dist
+          - name: dist
 
         run:
           path: /bin/sh
@@ -77,3 +77,7 @@ jobs:
       params:
         path: pull-request
         status: success
+
+    - put: pypi
+      params:
+        path: dist
