@@ -11,15 +11,16 @@ resource_types:
     repository: teliaoss/github-pr-resource
 
 resources:
-  - name: pypi-resource
+  - name: pypi
     type: artifactory
     source:
-      uri: http://localhost:8081/artifactory/api/pypi/pypi-local/simple
-      username: ((artifactory-username))
-      password: ((artifactory-password))
-      repository_id: demo
-      artifact_id: mgl869
       insecure: true
+      api_key: ((artifactory-password))
+      host: artifactory-host
+      repository_id: pypi-local
+      group_id: demo
+      artifact_id: mgl869
+      enforce_semver: true
 
   - name: pull-request
     type: pull-request
@@ -48,19 +49,19 @@ jobs:
         image_resource:
           type: registry-image
           source:
-            repository: busybox
+            repository: python
         inputs:
           - name: pull-request
 
         outputs:
-          - dist: dist
+          - name: dist
 
         run:
           path: /bin/sh
           args:
             - -xce
             - |
-              cd ./repo
+              cd ./pull-request
               pip install -r requirements.txt
               python -m pytest
               python -m build
@@ -77,3 +78,7 @@ jobs:
       params:
         path: pull-request
         status: success
+
+    - put: pypi
+      params:
+        path: dist
