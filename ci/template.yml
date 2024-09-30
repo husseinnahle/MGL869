@@ -14,10 +14,11 @@ resources:
   - name: pypi
     type: artifactory
     source:
-      uri: http://localhost:8081/artifactory/api/pypi/pypi-local/simple
+      uri: http://localhost:8081/artifactory
       # username: ((artifactory-username))
       api_key: ((artifactory-password))
-      repository_id: demo
+      repository_id: pypi-local
+      group_id: demo
       artifact_id: mgl869
       insecure: true
 
