@@ -16,7 +16,7 @@ resources:
     source:
       insecure: true
       api_key: ((artifactory-password))
-      host: http://localhost:8081/artifactory
+      host: artifactory-host
       repository_id: pypi-local
       group_id: demo
       artifact_id: mgl869
