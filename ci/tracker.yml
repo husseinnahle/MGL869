@@ -3,6 +3,11 @@ resource_types:
   type: registry-image
   source:
     repository: aoldershaw/github-pr-resource
+- name: artifactory
+  type: registry-image
+  source:
+    repository: emeraldsquad/artifactory-resource
+    tag: 3.3.0
 
 resources:
 - name: pull-requests
@@ -33,4 +38,4 @@ jobs:
     set_pipeline: prs
     file: repo/ci/template.yml
     instance_vars: {number: ((.:pr.number))}
-    vars: {github-access-token: ((github-access-token)), pr-webhook-token: ((pr-webhook-token)), artifactory-host: ((artifactory-host)), artifactory-password: ((artifactory-password))}
+    vars: {github-access-token: ((github-access-token)), pr-webhook-token: ((pr-webhook-token)), artifactory-host: ((artifactory-host)), artifactory-api-key: ((artifactory-api-key))}
