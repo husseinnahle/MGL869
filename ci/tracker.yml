@@ -25,7 +25,7 @@ resources:
     branch: main
 
 jobs:
-- name: test
+- name: set-pr-pipeline
   plan:
   - get: repo
   - get: pull-requests
