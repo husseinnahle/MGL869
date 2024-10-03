@@ -2,7 +2,8 @@ from rich.console import Console
 from rich.text import Text
 from random import randint
 
-def print_rainbow(text):
+
+def print_rainbow(text) -> None:
   console = Console()
   rainbow_text = Text()
   j = randint(1, 6)
@@ -12,8 +13,12 @@ def print_rainbow(text):
   console.print(rainbow_text)
 
 
-def mgl869() -> None:
-  return f"Démo MGL869"
+def mgl869() -> str:
+  return print_rainbow(f"Démo MGL869")
+
+
+def feature_1() -> str:
+  return print_rainbow("Feature 1")
 
 
 if __name__ == "__main__":
