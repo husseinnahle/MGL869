@@ -20,6 +20,8 @@ def mgl869() -> str:
 def feature_1() -> str:
   return print_rainbow("Feature 1")
 
+def feature_2() -> str:
+  return print_rainbow("Feature 2")
 
 if __name__ == "__main__":
   print_rainbow(mgl869())
